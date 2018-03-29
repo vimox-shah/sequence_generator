@@ -17,7 +17,7 @@ module SequenceGenerator
       ColumnWithSamePurposeExists = Class.new(StandardError)
 
       validates_presence_of :sequential_id, :purpose
-      before_validations :set_sequential_ids
+      before_validation :set_sequential_ids
 
       def self.included(base)
         base.extend ClassMethods
