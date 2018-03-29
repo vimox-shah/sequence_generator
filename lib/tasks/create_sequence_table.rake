@@ -22,7 +22,11 @@ task :create_sequence_table => :environment do
         table.column :updated_at, :datetime
 
       end
-      add_index :sequences, %i[id company_id branch_id current_sequence sequence_prefix]
+      add_index :sequences, %i[id]
+      add_index :sequences, %i[company_id]
+      add_index :sequences, %i[branch_id]
+      add_index :sequences, %i[sequential_id]
+      add_index :sequences, %i[sequence_prefix]
     end
   end
 end
