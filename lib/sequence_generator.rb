@@ -1,6 +1,4 @@
 require "sequence_generator/version"
-require 'active_support/core_ext/hash/slice'
-require 'active_support/core_ext/class/attribute_accessors'
 require "sequence_generator/act_as_sequenced"
 require 'railtie' if defined?(Rails)
 
