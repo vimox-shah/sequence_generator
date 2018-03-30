@@ -19,7 +19,7 @@ module SequenceGenerator
 
     module ClassMethods
       def act_as_sequenced(options= {})
-        put options, 'options'
+        puts options, 'options'
         unless defined?(sequenced_options)
           include SequenceGenerator::ActsAsSequenced::InstanceMethods
 
@@ -28,7 +28,7 @@ module SequenceGenerator
         end
 
         options = DEFAULT_OPTIONS.merge(options)
-        put options, 'options after merge'
+        puts options, 'options after merge'
         column_name = options[:column]
         purpose = options[:purpose]
 
