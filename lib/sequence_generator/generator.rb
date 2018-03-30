@@ -1,7 +1,8 @@
 module SequenceGenerator
   class Generator
     attr_reader :record, :scope, :column, :start_at, :purpose, :sequential_id,
-                :valid_from, :valid_till, :seller_id
+                :valid_from, :valid_till, :seller_id, :company_id, :financial_year_start,
+                :financial_year_end
 
     def initialize(record, options = {})
       @record = record
@@ -13,11 +14,22 @@ module SequenceGenerator
       @valid_till = options[:valid_till]
       @seller_id = options[:seller_id]
       @sequential_id = options[:sequential_id]
+      @company_id = options[:company_id]
+      @financial_year_start = options[:financial_year_start]
+      @financial_year_end = options[:financial_year_end]
     end
 
+    def create_sequence
+      Sequence.create!(sequential_id: sequential_id, branch_id: seller_id,
+                       purpose: purpose, company_id: company_id,
+                       valid_till: valid_till,
+                       valid_from: valid_from,
+                       financial_year_start: financial_year_start,
+                       financial_year_end: financial_year_end)
+    end
 
     def generate_sequence_number
-      sequence = Sequence.where(branch_id: seller_id).first
+      sequence = Sequence.where(branch_id: seller_id, purpose: purpose).first
       sequence_number = "%05d" % (sequence.sequential_id + 1).to_s
       sequential_id = "#{sequence.sequence_prefix}#{"/"}#{sequence_number}"
       if sequence.present?
